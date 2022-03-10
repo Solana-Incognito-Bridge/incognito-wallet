@@ -1,3 +1,5 @@
+import routeNames from '@src/router/routeNames';
+
 export const ACTION_FETCHING = '[pDexV3][swap] Fetching data';
 export const ACTION_FETCHED = '[pDexV3][swap] Fetched data';
 export const ACTION_FETCH_FAIL = '[pDexV3][swap] Fetch fail data';
@@ -48,9 +50,14 @@ export const ACTION_FREE_HISTORY_ORDERS = '[pDexV3][swap] Free history orders';
 
 export const ACTION_CHANGE_SLIPPAGE = '[pDexV3][swap] Change slippage';
 
-export const ACTION_FETCHING_REWARD_HISTORY = '[pDexV3][swap] Fetching reward history';
-export const ACTION_FETCHED_REWARD_HISTORY = '[pDexV3][swap] Fetched reward history';
-export const ACTION_FETCH_FAIL_REWARD_HISTORY ='[pDexV3][swap] Fetch fail reward history';
+export const ACTION_FETCHING_REWARD_HISTORY =
+  '[pDexV3][swap] Fetching reward history';
+export const ACTION_FETCHED_REWARD_HISTORY =
+  '[pDexV3][swap] Fetched reward history';
+export const ACTION_FETCH_FAIL_REWARD_HISTORY =
+  '[pDexV3][swap] Fetch fail reward history';
+
+export const ACTION_RESET_DATA = '[pDexV3][swap] Reset data';
 
 export const TAB_SIMPLE_ID = '[swap] simple';
 export const TAB_PRO_ID = '[swap] pro';
@@ -58,7 +65,16 @@ export const ROOT_TAB_ID = 'ROOT_TAB_SWAP';
 
 export const ROOT_TAB_SUB_INFO = 'ROOT_TAB_SUB_INFO';
 export const TAB_HISTORY_ID = '[swap_sub_info] history order';
+
+export const ROOT_TAB_SWAP_HISTORY = 'ROOT_TAB_SWAP_HISTORY';
+export const TAB_SWAP_HISTORY_ID = 'swap_sub_info] swap history';
 export const TAB_REWARD_HISTORY_ID = '[swap_sub_info] reward history';
+
+export const SCREENS_TO_SHOW_REWARD_HISTORY_TAB = [
+  routeNames.PrivacyAppsPancake,
+  routeNames.PrivacyAppsUni,
+  routeNames.PrivacyAppsCurve,
+];
 
 export const formConfigs = {
   formName: 'FORM_SWAP',
@@ -71,7 +87,8 @@ export const formConfigs = {
 export const KEYS_PLATFORMS_SUPPORTED = {
   incognito: 'incognito',
   pancake: 'pancake',
-  uni: 'uni'
+  uni: 'uni',
+  curve: 'curve',
 };
 
 export const PLATFORMS_SUPPORTED = [
@@ -84,14 +101,21 @@ export const PLATFORMS_SUPPORTED = [
   },
   {
     id: KEYS_PLATFORMS_SUPPORTED.pancake,
-    title: 'Pancake',
+    title: 'PancakeSwap',
     desc: '',
     visible: true,
     isSelected: false,
   },
   {
     id: KEYS_PLATFORMS_SUPPORTED.uni,
-    title: 'Uni',
+    title: 'Uniswap',
+    desc: '',
+    visible: true,
+    isSelected: false,
+  },
+  {
+    id: KEYS_PLATFORMS_SUPPORTED.curve,
+    title: 'Curve',
     desc: '',
     visible: true,
     isSelected: false,

@@ -1,7 +1,7 @@
 import { Row } from '@src/components';
 import React from 'react';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   actionToggleFollowingPool,
   getDataByPoolIdSelector,
@@ -11,12 +11,13 @@ import { Text, TouchableOpacity } from '@src/components/core';
 import { BtnStar } from '@src/components/Button';
 import TwoTokenImage from '@screens/PDexV3/features/Portfolio/Portfolio.image';
 import { colorsSelector } from '@src/theme';
+import useDebounceSelector from '@src/shared/hooks/debounceSelector';
 import { styled } from './Pool.styled';
 
 export const PoolItem = React.memo((props) => {
   const { poolId, onPressPool, style, isLast } = props;
-  const data = useSelector(getDataByPoolIdSelector)(poolId);
-  const colors = useSelector(colorsSelector);
+  const data = useDebounceSelector(getDataByPoolIdSelector)(poolId);
+  const colors = useDebounceSelector(colorsSelector);
   if (!data) {
     return null;
   }
@@ -42,7 +43,7 @@ export const PoolItem = React.memo((props) => {
           <Row style={styled.rowName} centerVertical>
             <Text style={styled.name}>{poolTitle}</Text>
           </Row>
-          {/*<Text style={styled.subText}>{`Vol: ${volumeSuffixStr}`}</Text>*/}
+          <Text style={[styled.network, { backgroundColor: colors.secondary }]}>{`${token1.networkName} / ${token2.networkName}`}</Text>
         </View>
         <View style={styled.block2}>
           <Text style={styled.subText}>{`${apyStr}`}</Text>

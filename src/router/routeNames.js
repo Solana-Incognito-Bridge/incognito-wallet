@@ -204,6 +204,7 @@ export default {
   SelectOptionModal: 'SelectOptionModal',
   PrivacyAppsPancake: 'PrivacyAppsPancake',
   PrivacyAppsUni: 'PrivacyAppsUni',
+  PrivacyAppsCurve: 'PrivacyAppsCurve',
   MarketSearchCoins: 'MarketSearchCoins',
   HomeLP: 'TabHomeLP',
 };

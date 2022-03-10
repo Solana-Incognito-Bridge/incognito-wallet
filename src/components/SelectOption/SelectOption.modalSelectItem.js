@@ -7,7 +7,7 @@ import { FONT } from '@src/styles';
 import ModalBottomSheet from '@src/components/Modal/features/ModalBottomSheet';
 import { useSelector } from 'react-redux';
 import { colorsSelector } from '@src/theme';
-import { AppIcon, PancakeIcon } from '@src/components/Icons';
+import { AppIcon, PancakeIcon, UniIcon, CurveIcon } from '@src/components/Icons';
 import { KEYS_PLATFORMS_SUPPORTED } from '@src/screens/PDexV3/features/Swap';
 
 const styled = StyleSheet.create({
@@ -56,11 +56,13 @@ const styled = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 24,
+    resizeMode: 'contain',
   },
   selectedIcon: {
     width: 15,
     height: 15,
     borderRadius: 15,
+    resizeMode: 'contain',
   },
 });
 
@@ -92,9 +94,12 @@ export const SelectItem = React.memo(
       break;
     case KEYS_PLATFORMS_SUPPORTED.uni:
       icon = (
-        <PancakeIcon
-          style={!isSelectItem ? styled.selectedIcon : styled.icon}
-        />
+        <UniIcon style={!isSelectItem ? styled.selectedIcon : styled.icon} />
+      );
+      break;
+    case KEYS_PLATFORMS_SUPPORTED.curve:
+      icon = (
+        <CurveIcon style={!isSelectItem ? styled.selectedIcon : styled.icon} />
       );
       break;
     default:

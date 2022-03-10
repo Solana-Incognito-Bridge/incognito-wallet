@@ -147,6 +147,7 @@ import { SelectOptionModal } from '@components/SelectOption';
 import {
   PrivacyAppsPancake,
   PrivacyAppsUni,
+  PrivacyAppsCurve,
 } from '@screens/PDexV3/features/PrivacyApps';
 import MarketSearchCoins from '@screens/MainTabBar/features/Market/Market.searchCoins';
 import HomeLP from '@screens/MainTabBar/features/HomeLP';
@@ -345,6 +346,10 @@ const pDexV3Routes = [
   {
     screen: PrivacyAppsUni,
     name: routeNames.PrivacyAppsUni,
+  },
+  {
+    screen: PrivacyAppsCurve,
+    name: routeNames.PrivacyAppsCurve,
   },
   {
     screen: MarketSearchCoins,

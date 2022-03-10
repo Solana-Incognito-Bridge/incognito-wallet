@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import ClipboardService from '@src/services/clipboard';
-import { COLORS, FONT } from '@src/styles';
+import { FONT } from '@src/styles';
 import { Row } from '@src/components';
 import { Text } from '@src/components/core';
 import { BtnCopy, BtnOpenUrl } from '@src/components/Button';
@@ -36,10 +36,10 @@ export const styled = StyleSheet.create({
 });
 
 export const OrderDetailValue = React.memo(
-  ({ copiable, openUrl, handleOpenUrl, value }) => {
+  ({ copiable, openUrl, handleOpenUrl, value, containerStyle }) => {
     const handleCopy = () => ClipboardService.set(value);
     return (
-      <Row style={styled.rowValue}>
+      <Row style={[styled.rowValue, containerStyle || {}]}>
         <Text style={styled.value} ellipsizeMode="middle" numberOfLines={1}>
           {value}
         </Text>
@@ -62,16 +62,30 @@ const OrderDetail = ({
   handleOpenUrl,
   customValue,
   hookStyled,
+  labelStyle,
+  valueContainerStyle
 }) => {
   return (
     <Row style={{ ...styled.row, ...hookStyled }}>
-      <Text style={styled.label} ellipsizeMode="middle" numberOfLines={1}>
+      <Text
+        style={[styled.label, labelStyle || {}]}
+        ellipsizeMode="middle"
+        numberOfLines={1}
+      >
         {`${label}: `}
       </Text>
       {customValue ? (
         customValue
       ) : (
-        <OrderDetailValue {...{ copiable, openUrl, handleOpenUrl, value }} />
+        <OrderDetailValue
+          {...{
+            copiable,
+            openUrl,
+            handleOpenUrl,
+            value,
+            containerStyle: valueContainerStyle || {},
+          }}
+        />
       )}
     </Row>
   );

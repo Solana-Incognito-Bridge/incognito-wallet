@@ -12,6 +12,12 @@ const ERC20_NETWORK = {
   PDex: 'Incognito',
 };
 
+export const HISTORY_STATUS_CODE = {
+  REJECTED: 26,
+  ACCEPTED: 18,
+  PENDING: 1
+};
+
 export const HISTORY_STATUS = {
   REFUND: ['refund', 'xPoolTradeRefundFee', 'xPoolTradeRefundSellingToken'],
   REJECTED: ['rejected', 'withPRVFeeRejected'],

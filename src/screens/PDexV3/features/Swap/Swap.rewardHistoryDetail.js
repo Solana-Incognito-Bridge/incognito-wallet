@@ -21,6 +21,8 @@ import { PRV } from '@src/constants/common';
 const styled = StyleSheet.create({
   container: { flex: 1 },
   scrollview: { flex: 1, paddingTop: 32 },
+  itemLeftContainer: { flex: 1, marginRight: 10 },
+  itemRightContainer: {flex: 1, marginLeft: 0},
 });
 
 const SwapRewardHistoryDetail = () => {
@@ -29,27 +31,27 @@ const SwapRewardHistoryDetail = () => {
 
   const data = [
     {
-      label: 'Create At',
+      label: 'Paid out at',
       value: formatUtil.formatDateTime(rewardHistoryDetail?.createdAt),
     },
     {
-      label: 'Sum Total Volume',
+      label: 'Total trading volume',
       value: (rewardHistoryDetail?.sumTotalVolume)?.toFixed(4),
     },
     {
-      label: 'Total Volume',
+      label: 'Your trading volume',
       value: (rewardHistoryDetail?.totalVolume)?.toFixed(4),
     },
     {
-      label: 'Reward Amount',
+      label: 'Reward amount',
       value: `${formatUtil.amountVer2(rewardHistoryDetail?.rewardAmount, PRV.pDecimals)} PRV`,
     },
     {
-      label: 'From Time',
+      label: 'Calculated from',
       value: formatUtil.formatDateTime(rewardHistoryDetail?.fromTime),
     },
     {
-      label: 'To Time',
+      label: 'Calculated to',
       value: formatUtil.formatDateTime(rewardHistoryDetail?.toTime),
     },
     {
@@ -71,6 +73,7 @@ const SwapRewardHistoryDetail = () => {
               )
             }
             value={`#${rewardHistoryDetail?.tx}`}
+            containerStyle={styled.itemRightContainer}
           />
         </Row>
       ),
@@ -98,12 +101,19 @@ const SwapRewardHistoryDetail = () => {
   return (
     <View2 style={styled.container}>
       <Header
-        title="Reward history detail"
+        title="Trading rewards detail"
         rightHeader={<BtnCopy onPress={handleCopy} isHeader />}
       />
       <ScrollViewBorder style={styled.scrollview}>
         {data.length > 0 &&
-          data?.map((item) => <TradeOrderDetail key={item?.label} {...item} />)}
+          data?.map((item) => (
+            <TradeOrderDetail
+              labelStyle={styled.itemLeftContainer}
+              valueContainerStyle={styled.itemRightContainer}
+              key={item?.label}
+              {...item}
+            />
+          ))}
       </ScrollViewBorder>
     </View2>
   );

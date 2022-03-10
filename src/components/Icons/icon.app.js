@@ -13,7 +13,7 @@ const styled = StyleSheet.create({
 });
 
 const AppIcon = (props) => {
-  return <Image source={AppImg} style={[props?.style, styled.icon]} />;
+  return <Image source={AppImg} style={[styled.icon, props?.style]} />;
 };
 
 AppIcon.propTypes = {};

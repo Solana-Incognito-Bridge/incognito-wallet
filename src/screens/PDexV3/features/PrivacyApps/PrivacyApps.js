@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { withLayout_2 } from '@src/components/Layout';
-// import { ScrollViewBorder } from '@components/core';
 import { View } from '@src/components/core';
-import { PancakeIcon2, UniIcon } from '@src/components/Icons';
+import { PancakeIcon2, UniIcon2, CurveIcon2 } from '@src/components/Icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { FONT } from '@src/styles';
 import { KEYS_PLATFORMS_SUPPORTED } from '@screens/PDexV3/features/Swap';
@@ -41,6 +40,9 @@ const PrivacyApps = () => {
     case KEYS_PLATFORMS_SUPPORTED.uni:
       navigation.navigate(routeNames.PrivacyAppsUni);
       break;
+    case KEYS_PLATFORMS_SUPPORTED.curve:
+      navigation.navigate(routeNames.PrivacyAppsCurve);
+      break;
     default:
       break;
     }
@@ -67,9 +69,27 @@ const PrivacyApps = () => {
       },
       {
         privacyAppId: KEYS_PLATFORMS_SUPPORTED.uni,
-        // icon: <UniIcon />,
+        icon: <UniIcon2 />,
         headerTitle: 'pUniswap',
         headerSub: 'Private Uniswap',
+        groupActions: [
+          {
+            id: 'POLYGON',
+            title: 'Polygon',
+          },
+          {
+            id: 'DEX',
+            title: 'DEX',
+          },
+        ],
+        desc: 'Trade confidentially on everyone’s favorite DEX. Faster and cheaper thanks to Polygon, and private like all Incognito apps.',
+        onPressItem,
+      },
+      {
+        privacyAppId: KEYS_PLATFORMS_SUPPORTED.curve,
+        icon: <CurveIcon2 />,
+        headerTitle: 'pCurve',
+        headerSub: 'Private Curve',
         groupActions: [
           {
             id: 'POLYGON',

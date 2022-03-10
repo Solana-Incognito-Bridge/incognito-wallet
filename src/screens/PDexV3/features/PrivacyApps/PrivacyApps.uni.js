@@ -18,7 +18,7 @@ const PrivacyAppsUni = () => {
         exchange: KEYS_PLATFORMS_SUPPORTED.uni,
       }),
     );
-    dispatch(actionInitSwapForm({ refresh: true, shouldFetchHistory: true }));
+    dispatch(actionInitSwapForm({ refresh: false, shouldFetchHistory: true }));
   };
   React.useEffect(() => {
     dispatch(actionReset());
@@ -26,7 +26,7 @@ const PrivacyAppsUni = () => {
   return (
     <>
       <Header
-        title="pUniSwap"
+        title="pUniswap"
         accountSelectable
         handleSelectedAccount={handleOnRefresh}
       />

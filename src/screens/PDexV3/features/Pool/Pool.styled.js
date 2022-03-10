@@ -26,7 +26,7 @@ export const styled = StyleSheet.create({
   },
   block1: {
     flex: 1,
-    marginRight: 15,
+    marginRight: 10,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
@@ -34,7 +34,7 @@ export const styled = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-end',
     marginRight: 5,
-    width: 80,
+    width: 70,
   },
   block3: {
     width: 30,
@@ -42,4 +42,13 @@ export const styled = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
   },
+  network: {
+    fontSize: FONT.SIZE.superSmall,
+    fontFamily: FONT.NAME.medium,
+    paddingHorizontal: 4,
+    lineHeight: 16,
+    borderRadius: 4,
+    overflow: 'hidden',
+    marginTop: 4
+  }
 });

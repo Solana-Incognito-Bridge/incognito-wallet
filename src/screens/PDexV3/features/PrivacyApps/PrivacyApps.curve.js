@@ -9,16 +9,16 @@ import { withLayout_2 } from '@src/components/Layout';
 import Header from '@src/components/Header';
 import { useDispatch } from 'react-redux';
 
-const PrivacyAppsPancake = () => {
+const PrivacyAppsCurve = () => {
   const dispatch = useDispatch();
   const handleOnRefresh = async () => {
     await dispatch(
       actionSetDefaultExchange({
         isPrivacyApp: true,
-        exchange: KEYS_PLATFORMS_SUPPORTED.pancake,
+        exchange: KEYS_PLATFORMS_SUPPORTED.curve,
       }),
     );
-    dispatch(actionInitSwapForm({ refresh: false, shouldFetchHistory: true }));
+    dispatch(actionInitSwapForm({ refresh: true, shouldFetchHistory: true }));
   };
   React.useEffect(() => {
     dispatch(actionReset());
@@ -26,15 +26,15 @@ const PrivacyAppsPancake = () => {
   return (
     <>
       <Header
-        title="pPancakeSwap"
+        title="pCurve"
         accountSelectable
         handleSelectedAccount={handleOnRefresh}
       />
-      <TabSwap isPrivacyApp exchange={KEYS_PLATFORMS_SUPPORTED.pancake} />
+      <TabSwap isPrivacyApp exchange={KEYS_PLATFORMS_SUPPORTED.curve} />
     </>
   );
 };
 
-PrivacyAppsPancake.propTypes = {};
+PrivacyAppsCurve.propTypes = {};
 
-export default withLayout_2(React.memo(PrivacyAppsPancake));
+export default withLayout_2(React.memo(PrivacyAppsCurve));

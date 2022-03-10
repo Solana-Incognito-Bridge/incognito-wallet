@@ -20,6 +20,7 @@ import { ANALYTICS } from '@src/constants';
 import {actionFetch as actionFetchHomeConfigs} from '@screens/Home/Home.actions';
 import {actionCheckUnreadNews} from '@screens/News';
 import { actionFetchPairs } from '@screens/PDexV3/features/Swap';
+import { setTokenHeader } from '@services/http';
 import withDetectStatusNetwork from './GetStarted.enhanceNetwork';
 import withWizard from './GetStarted.enhanceWizard';
 import withWelcome from './GetStarted.enhanceWelcome';
@@ -53,8 +54,22 @@ const enhance = (WrappedComp) => (props) => {
   const configsApp = async () => {
     console.time('CONFIGS_APP');
     let hasError;
+    let token;
     await setLoading(true);
     try {
+      try {
+        if (typeof global.login === 'function') {
+          token = await global.login();
+          setTokenHeader(token);
+        }
+      } catch (error) {
+        console.log('CANT LOAD NEW ACCESS TOKEN');
+        hasError = true;
+      } finally {
+        if (!token || hasError) {
+          setError('Hey, you there? Your internet connection is unstable. Please check your network settings and launch the app again.');
+        }
+      }
       login();
       batch(() => {
         dispatch(actionFetchProfile());

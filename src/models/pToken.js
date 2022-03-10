@@ -21,6 +21,7 @@ class PToken {
     this.verified = data.Verified;
     this.currencyType = data.CurrencyType; // including ERC20, BEP1, BEP2,...
     this.priceUsd = data?.PriceUsd;
+    this.externalPriceUSD = data?.ExternalPriceUSD; // current market price
     this.pairPrv = pairPrv;
     this.change = data?.PercentChange24h || '';
     this.pricePrv = data?.PricePrv || 0;

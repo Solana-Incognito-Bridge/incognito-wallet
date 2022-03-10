@@ -31,7 +31,6 @@ const styled = StyleSheet.create({
   percentContainer: {
     width: 60,
     alignItems: 'center',
-    paddingVertical: 3,
     paddingHorizontal: 8,
     backgroundColor: '#404040',
     borderRadius: 4,
@@ -51,6 +50,7 @@ export const useTabFactories = () => {
   const tradePathArr = feeTokenData?.tradePathArr || [];
 
   const renderTradePath = () => {
+    const percents = feeTokenData?.uni?.percents || [];
     return (
       <View style={styled.tradePathRightContainer}>
         {tradePathArr?.map((tradePath, tradePathIndex) => {
@@ -63,11 +63,11 @@ export const useTabFactories = () => {
               ]}
             >
               <View>
-                <Text style={styled.text}>{tradePath?.pathStr}</Text>
+                <Text style={styled.text}>{tradePath}</Text>
               </View>
-              {tradePath?.percent && (
+              {percents[tradePathIndex] && (
                 <View style={styled.percentContainer}>
-                  <Text style={styled.text}>{tradePath?.percent}%</Text>
+                  <Text style={styled.text}>{percents[tradePathIndex]}%</Text>
                 </View>
               )}
             </View>

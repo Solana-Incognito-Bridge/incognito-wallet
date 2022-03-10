@@ -4,7 +4,7 @@ import NetInfo from '@react-native-community/netinfo';
 import ErrorBoundary from '@src/components/ErrorBoundary';
 import { LoadingContainer, Text, View } from '@src/components/core';
 import { ExHandler } from '@src/services/exception';
-import { COLORS, FONT } from '@src/styles';
+import { FONT } from '@src/styles';
 import { ButtonBasic } from '@src/components/Button';
 import { compose } from 'recompose';
 import { withLayout_2 } from '@components/Layout';
@@ -39,7 +39,7 @@ const enhance = (WrappedComp) => (props) => {
   const checkStatusNetwork = async () => {
     try {
       await setChecking(true);
-      const { type, isConnected } = await NetInfo.fetch();
+      const { isConnected } = await NetInfo.fetch();
       await setConnected(isConnected);
     } catch (error) {
       new ExHandler(error).showErrorToast();

@@ -22,9 +22,11 @@ import {
   swapSelector,
   inputAmountSelector,
   swapInfoSelector,
+  platformSelectedSelector,
 } from './Swap.selector';
 import {
   actionEstimateTrade,
+  actionResetData,
   actionSelectToken,
   actionSetFocusToken,
   actionSwapToken,
@@ -32,6 +34,7 @@ import {
 } from './Swap.actions';
 import { inputGroupStyled as styled } from './Swap.styled';
 import SwapProTab from './Swap.proTab';
+import { KEYS_PLATFORMS_SUPPORTED } from '.';
 
 const SwapInputsGroup = React.memo(() => {
   const dispatch = useDispatch();
@@ -41,6 +44,7 @@ const SwapInputsGroup = React.memo(() => {
   const pairsToken = useSelector(listPairsSelector);
   const selltoken: SelectedPrivacy = useSelector(selltokenSelector);
   const buytoken: SelectedPrivacy = useSelector(buytokenSelector);
+  const platform = useSelector(platformSelectedSelector);
   const inputAmount = useSelector(inputAmountSelector);
   const sellInputAmount = inputAmount(formConfigs.selltoken);
   const buyInputAmount = inputAmount(formConfigs.buytoken);
@@ -65,7 +69,11 @@ const SwapInputsGroup = React.memo(() => {
   };
   const onFocusToken = (e, field) => dispatch(actionSetFocusToken(swap[field]));
   const onEndEditing = (field) => dispatch(actionEstimateTrade({ field }));
-  const onSwapButtons = () => dispatch(actionSwapToken());
+  const onSwapButtons = () => {
+    dispatch(actionSwapToken());
+    dispatch(actionResetData());
+    dispatch(change(formConfigs.formName, formConfigs.feetoken, ''));
+  };
   let _maxAmountValidatorForSellInput = React.useCallback(
     () => maxAmountValidatorForSellInput(sellInputAmount, navigation),
     [
@@ -129,7 +137,7 @@ const SwapInputsGroup = React.memo(() => {
         onEndEditing={() => onEndEditing(formConfigs.buytoken)}
         validate={[...validator.combinedAmount]}
         loadingBalance={!!buyInputAmount?.loadingBalance}
-        editableInput={!!swapInfo?.editableInput}
+        editableInput={!!swapInfo?.editableInput && platform.id !== KEYS_PLATFORMS_SUPPORTED.curve}
         visibleHeader={false}
         onChange={(value) => onChange(formConfigs.buytoken, value)}
       />

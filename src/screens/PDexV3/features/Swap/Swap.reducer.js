@@ -39,6 +39,7 @@ import {
   ACTION_FETCHING_REWARD_HISTORY,
   ACTION_FETCHED_REWARD_HISTORY,
   ACTION_FETCH_FAIL_REWARD_HISTORY,
+  ACTION_RESET_DATA,
 } from './Swap.constant';
 
 const initialState = {
@@ -58,6 +59,11 @@ const initialState = {
     },
     [KEYS_PLATFORMS_SUPPORTED.uni]: {
       // uni
+      feePrv: {},
+      error: null,
+    },
+    [KEYS_PLATFORMS_SUPPORTED.curve]: {
+      // curve
       feePrv: {},
       error: null,
     },
@@ -87,6 +93,7 @@ const initialState = {
   pDEXPairs: [],
   pancakeTokens: [],
   uniTokens: [],
+  curveTokens: [],
   platforms: [...PLATFORMS_SUPPORTED],
   field: '',
   useMax: false,
@@ -171,6 +178,9 @@ const reducer = (state = initialState, action) => {
     case KEYS_PLATFORMS_SUPPORTED.uni:
       feetoken = PRV_ID;
       break;
+    case KEYS_PLATFORMS_SUPPORTED.curve:
+      feetoken = PRV_ID;
+      break;
     default:
       break;
     }
@@ -250,13 +260,14 @@ const reducer = (state = initialState, action) => {
     };
   }
   case ACTION_FETCHED_LIST_PAIRS: {
-    const { pairs, pDEXPairs, pancakeTokens, uniTokens } = action.payload;
+    const { pairs, pDEXPairs, pancakeTokens, uniTokens, curveTokens } = action.payload;
     return {
       ...state,
       pairs,
       pDEXPairs,
       pancakeTokens,
-      uniTokens
+      uniTokens,
+      curveTokens,
     };
   }
   case ACTION_FETCH_SWAP: {
@@ -273,6 +284,12 @@ const reducer = (state = initialState, action) => {
   }
   case ACTION_RESET: {
     return Object.assign({}, { ...initialState, slippage: state.slippage });
+  }
+  case ACTION_RESET_DATA: {
+    return {
+      ...state,
+      data: Object.assign({}, initialState.data),
+    };
   }
   case ACTION_FETCHING: {
     return {
