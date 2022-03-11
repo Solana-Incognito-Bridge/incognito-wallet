@@ -27,33 +27,53 @@ import { MAX_FEE_PER_TX, hasMultiLevelUsersFee } from './EstimateFee.utils';
 const initialState = {
   isFetching: false,
   isFetched: false,
+
   minFeePrv: null,
   minFeePrvText: null,
-  feePrv: null,
-  feePrvText: '',
-  maxFeePrv: null,
-  maxFeePrvText: null,
-  feePToken: null,
-  feePTokenText: '',
-  feeBurnPToken: null,
-  feeBurnPTokenText: '',
   minFeePToken: null,
   minFeePTokenText: '',
-  maxFeePToken: null,
+
+  feePrv: null,
+  feePrvText: '',
+  feePToken: null,
+  feePTokenText: '',
+
+  maxFeePrv: null,        /** PRV Account Balance */
+  maxFeePrvText: null,
+  maxFeePToken: null,     /** PToken Account Balance */
   maxFeePTokenText: '',
+
+  feeBurnPToken: null,
+  feeBurnPTokenText: '',
+
   amount: null,
   amountText: '',
-  minAmount: null,
+
+  minAmount: null,          /** Min unshield amount */
   minAmountText: '',
+
+  userFeePrv: null,
+  userFeePToken: null,
+
+  totalFeePrv: null,        /** Min unshield amount */
+  totalFeePrvText: '',
+  totalFeePToken: null,     /** Min unshield amount */
+  totalFeePTokenText: '',
+
   init: false,
   screen: '',
   types: [
+    // {
+    //   tokenId: CONSTANT_COMMONS.PRV.id,
+    //   symbol: CONSTANT_COMMONS.PRV.symbol,
+    // },
     {
-      tokenId: CONSTANT_COMMONS.PRV.id,
-      symbol: CONSTANT_COMMONS.PRV.symbol,
-    },
+      tokenId: '00000000000000000000000000000000000000000000000000000000000115d7',
+      symbol: 'USDT'
+    }
   ],
-  actived: CONSTANT_COMMONS.PRV.id,
+  // actived: CONSTANT_COMMONS.PRV.id,
+  actived: '00000000000000000000000000000000000000000000000000000000000115d7',
   rate: 1,
   isAddressValidated: true,
   isValidETHAddress: true,
@@ -66,12 +86,6 @@ const initialState = {
   },
   isValidating: false,
   fast2x: false,
-  totalFeePrv: null,
-  totalFeePrvText: '',
-  userFeePrv: null,
-  totalFeePToken: null,
-  totalFeePTokenText: '',
-  userFeePToken: null,
 };
 
 export default (state = initialState, action) => {
@@ -259,7 +273,6 @@ export default (state = initialState, action) => {
       ? 'totalFeePrvText'
       : 'totalFeePTokenText';
     const userFeeField = isUsedPRVFee ? 'userFeePrv' : 'userFeePToken';
-
     return {
       ...state,
       fast2x,

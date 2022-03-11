@@ -223,6 +223,7 @@ export const actionHandleFeeEst = ({ feeEst }) => async (
   getState,
 ) => {
   let feePrv, feePrvText, totalFeePrv, totalFeePrvText, userFeePrv;
+  let totalFeePToken, totalFeePTokenText, userFeePToken;
   const state = getState();
   const {
     rate,
@@ -252,9 +253,15 @@ export const actionHandleFeeEst = ({ feeEst }) => async (
         isUsedPRVFee,
         hasMultiLevel,
       });
-      totalFeePrv = totalFee;
-      totalFeePrvText = totalFeeText;
-      userFeePrv = userFee;
+      if (isUsedPRVFee) {
+        totalFeePrv = totalFee;
+        totalFeePrvText = totalFeeText;
+        userFeePrv = userFee;
+      } else {
+        totalFeePToken = totalFee;
+        totalFeePTokenText = totalFeeText;
+        userFeePToken = userFee;
+      }
     }
   } catch (error) {
     throw error;
@@ -268,14 +275,19 @@ export const actionHandleFeeEst = ({ feeEst }) => async (
         totalFeePrv,
         totalFeePrvText,
         userFeePrv,
+        totalFeePToken,
+        totalFeePTokenText,
+        userFeePToken,
       }),
     );
-    if (isUsedPRVFee) {
-      await new Promise.all([
-        await dispatch(change(formName, 'fee', totalFeePrvText)),
-        await dispatch(focus(formName, 'fee')),
-      ]);
-    }
+    await new Promise.all([
+      await dispatch(change(formName, 'fee',
+        isUsedPRVFee
+          ? totalFeePrvText
+          : totalFeePTokenText
+      )),
+      await dispatch(focus(formName, 'fee')),
+    ]);
   }
 };
 

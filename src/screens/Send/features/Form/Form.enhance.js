@@ -12,6 +12,7 @@ import { actionFetchFeeByMax } from '@src/components/EstimateFee/EstimateFee.act
 import { useKeyboard } from '@src/components/UseEffect/useKeyboard';
 import { ANALYTICS } from '@src/constants';
 import { requestUpdateMetrics } from '@src/redux/actions/app';
+import useDebounceSelector from '@src/shared/hooks/debounceSelector';
 import { enhanceAddressValidation } from './Form.enhanceAddressValidator';
 import { enhanceAmountValidation } from './Form.enhanceAmountValidator';
 import { enhanceInit } from './Form.enhanceInit';
@@ -25,7 +26,7 @@ export const formName = 'formSend';
 
 export const enhance = (WrappedComp) => (props) => {
   const [isSending, setIsSending] = React.useState(false);
-  const isFormEstimateFeeValid = useSelector((state) =>
+  const isFormEstimateFeeValid = useDebounceSelector((state) =>
     isValid(formEstimateFee)(state),
   );
   const { handleSendAnonymously, handleUnShieldCrypto } = props;
@@ -38,14 +39,14 @@ export const enhance = (WrappedComp) => (props) => {
     isAddressValidated,
     isValidETHAddress,
     userFees,
-  } = useSelector(feeDataSelector);
+  } = useDebounceSelector(feeDataSelector);
   const dispatch = useDispatch();
   const selector = formValueSelector(formName);
-  const isFormValid = useSelector((state) => isValid(formName)(state));
-  const amount = useSelector((state) => selector(state, 'amount'));
-  const toAddress = useSelector((state) => selector(state, 'toAddress'));
-  const memo = useSelector((state) => selector(state, 'memo'));
-  const currencyType = useSelector((state) => selector(state, 'currencyType'));
+  const isFormValid = useDebounceSelector((state) => isValid(formName)(state));
+  const amount = useDebounceSelector((state) => selector(state, 'amount'));
+  const toAddress = useDebounceSelector((state) => selector(state, 'toAddress'));
+  const memo = useDebounceSelector((state) => selector(state, 'memo'));
+  const currencyType = useDebounceSelector((state) => selector(state, 'currencyType'));
   const [isKeyboardVisible] = useKeyboard();
   const handleStandardizedAddress = async (value) => {
     let _value = value || '';

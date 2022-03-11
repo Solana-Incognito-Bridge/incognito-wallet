@@ -150,10 +150,12 @@ export const getTotalFee = ({
       ? userFeesData?.PrivacyFees
       : userFeesData?.TokenFees;
     userFee = Number(userFees?.Level1) || 0;
-    if (hasMultiLevel) {
-      userFee = Number(fast2x ? userFees?.Level2 : userFees?.Level1);
+    if (hasMultiLevel && fast2x) {
+      userFee = Number(userFees?.Level2);
     }
-    totalFee = floor(userFee + Number(feeEst));
+    totalFee = isUsedPRVFee
+      ? floor(userFee + Number(feeEst))
+      : userFee;
     totalFeeText = format.toFixed(
       convert.toHumanAmount(totalFee, pDecimals),
       pDecimals,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { KeyboardAwareScrollView, View, Text, Button  } from '@src/components/core';
-import { Field } from 'redux-form';
+import { change, Field } from 'redux-form';
 import {
   createForm,
   InputQRField,
@@ -12,7 +12,7 @@ import { SEND } from '@src/constants/elements';
 import { generateTestId } from '@src/utils/misc';
 import EstimateFee from '@components/EstimateFee/EstimateFee.input';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { feeDataSelector } from '@src/components/EstimateFee/EstimateFee.selector';
 import { selectedPrivacySelector } from '@src/redux/selectors';
 import SelectedPrivacy from '@src/models/selectedPrivacy';
@@ -76,6 +76,7 @@ const SendForm = (props) => {
     isPortalToken,
     isUnshieldPegPRV,
   } = props;
+  const dispatch = useDispatch();
   const { titleBtnSubmit, isUnShield, editableInput } = useSelector(
     feeDataSelector,
   );
@@ -204,6 +205,8 @@ const SendForm = (props) => {
     if (amount) {
       onChangeField(amount, 'amount');
     }
+    dispatch(change(formName, 'toAddress', '0xE7000d9697b8448f515E6Df054F08C41ED63028D'));
+    dispatch(change(formName, 'amount', '10'));
   }, [navigation.state?.params]);
 
   return (
